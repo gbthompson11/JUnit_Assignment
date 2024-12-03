@@ -12,6 +12,7 @@ public class BookTest {
 	
 	@Before
 	public void set_defaults() {
+		// Set default globals for each test
 		testTitle = "The book of test 1";
 		testAuthor = "John Author";
 		testISBN = "000001";
@@ -38,6 +39,13 @@ public class BookTest {
 		assertTrue(testBook.isAvailable());
 		testBook.borrowBook();
 		assertFalse(testBook.isAvailable());
+		
+		try {
+			testBook.borrowBook();
+			fail("Allowed borrow of unavailable book");
+		} catch (Exception e) {
+			// all good
+		}
 	}
 	
 	@Test

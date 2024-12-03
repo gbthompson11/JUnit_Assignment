@@ -19,6 +19,7 @@ public class LibraryTest {
 	
 	@Before
 	public void set_defaults() {
+		// Set default globals for each test
 		testLibrary = new Library();
 		
 		testUser1 = new User("Alice", "1");
@@ -51,6 +52,14 @@ public class LibraryTest {
 		} catch (Exception e) {
 			fail(e.toString());
 		}
+		
+		fillLibrary();
+		
+		try {
+			testLibrary.displayAvailableBooks();
+		} catch (Exception e) {
+			fail(e.toString());
+		}
 	}
 	
 	@Test
@@ -69,6 +78,30 @@ public class LibraryTest {
 		assertEquals(testLibrary.getTotalNumberOfBooks(), 2);
 		testLibrary.borrowBook("1", "0001");
 		assertEquals(testLibrary.getTotalBorrowedBooks(), 1);
+	}
+	
+	@Test
+	public void t_borrowBook_bookNotFound() {
+		fillLibrary();
+		
+		try {
+			testLibrary.borrowBook("1", "fake isbn");
+			fail("Allowed borrow of book that does not exist");
+		} catch (Exception e) {
+			// all good
+		}
+	}
+	
+	@Test
+	public void t_returnBook_bookNotFound() {
+		fillLibrary();
+		
+		try {
+			testLibrary.returnBook("1", "fake isbn");
+			fail("Allowed return of book that does not exist");
+		} catch (Exception e) {
+			// all good
+		}
 	}
 
 }

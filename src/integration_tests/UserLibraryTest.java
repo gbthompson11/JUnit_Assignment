@@ -18,6 +18,7 @@ public class UserLibraryTest {
 	
 	@Before
 	public void set_defaults() {
+		// Set default globals for each test
 		testLibrary = new Library();
 		
 		testUser1 = new User("Alice", "1");

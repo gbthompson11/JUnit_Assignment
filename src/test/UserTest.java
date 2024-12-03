@@ -16,6 +16,7 @@ public class UserTest {
 
 	@Before
 	public void set_defaults() {
+		// Set default globals for each test
 		testUser1 = new User("Alice", "1");
 		testBook = new Book("b1", "t1", "i1");
 	}
