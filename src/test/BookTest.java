@@ -1,31 +1,50 @@
 package test;
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import project.Book;
 
 public class BookTest {
-
+	String testTitle, testAuthor, testISBN;
+	Book testBook;
+	
+	@Before
+	public void set_defaults() {
+		testTitle = "The book of test 1";
+		testAuthor = "John Author";
+		testISBN = "000001";
+		testBook = new Book(testTitle, testAuthor, testISBN);
+	}
+	
 	@Test
-	public void testBook() {
-		String testTitle = "The book of test 1";
-		String testAuthor = "John Author";
-		String testISBN = "000001";
-		Book testBook = new Book(testTitle, testAuthor, testISBN);
-		
+	public void t_getTitle() {
 		assertEquals(testTitle, testBook.getTitle());
+	}
+	
+	@Test
+	public void t_getAuthor() {
 		assertEquals(testAuthor, testBook.getAuthor());
+	}
+	
+	@Test
+	public void t_getIsbn() {
 		assertEquals(testISBN, testBook.getIsbn());
-		
-		testBook.borrowBook();
-		
-		assertFalse(testBook.isAvailable());
-		
-		testBook.returnBook();
-		
+	}
+	
+	@Test
+	public void t_borrowBook() {
 		assertTrue(testBook.isAvailable());
-
+		testBook.borrowBook();
+		assertFalse(testBook.isAvailable());
+	}
+	
+	@Test
+	public void t_returnBook() {
+		testBook.borrowBook();
+		testBook.returnBook();
+		assertTrue(testBook.isAvailable());
 	}
 
 }
